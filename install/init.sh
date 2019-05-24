@@ -71,3 +71,10 @@ ansible k8s-all -m cron -a "name='k8s cluster crontab' minute=*/30 hour=* day=* 
 ansible k8s-all -m shell -a "systemctl restart crond"
 ansible k8s-all -m shell -a "ntpdate time7.aliyun.com"
 }
+
+# create dir 
+CREATE_DIR(){
+ansible k8s-all -m file -a 'path=/etc/kubernetes/ssl state=directory'
+ansible k8s-all -m file -a 'path=/etc/kubernetes/config state=directory'
+mkdir /opt/k8s/{certs,cfg,unit} -p
+}
