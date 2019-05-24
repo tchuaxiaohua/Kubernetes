@@ -1,5 +1,21 @@
 #!/bin/bash
 
+
+
+# network check
+CHECK_NETWORK(){
+echo "Start testing network connecting..."
+
+for ip  in ${K8S_HOSTS}
+do
+	ping -c 3 -i 0.2 -W 3 $ip >/dev/null 2>&1
+	if [ $? -ne 0 ]
+	then
+	echo "$ip host is faild" && exit -1
+	fi
+done
+}
+
 # install ansible
 INSTALL_ANSIBLE(){
 yum install -y epel-release && yum install ansible -y
@@ -26,3 +42,5 @@ else
 	exit 1
 fi
 }
+
+# firewalld selinux
