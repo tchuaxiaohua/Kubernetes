@@ -19,7 +19,7 @@ else
 fi
 done
 
-cp ../config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
+cp -r ./config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
 cd /opt/k8s/certs/
 cfssl gencert -initca /opt/k8s/certs/ca-csr.json | cfssljson -bare ca
 ansible k8s-all -m copy -a 'src=/opt/k8s/certs/ca.csr dest=/etc/kubernetes/ssl/'
