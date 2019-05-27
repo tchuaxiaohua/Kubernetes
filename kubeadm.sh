@@ -23,6 +23,7 @@ FIREWALLD_INIT()
 SET_K8S_KERNEL()
 TIME_CRON_INIT()
 CREATE_DIR()
+
 ## 系统初始化结束 ##
 
 
