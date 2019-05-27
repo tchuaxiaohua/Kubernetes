@@ -64,6 +64,23 @@ ansible k8s-all -m shell -a 'modprobe br_netfilter'
 ansible k8s-all -m shell -a 'sysctl -p /etc/sysctl.d/k8s.conf'
 }
 
+# set hostname
+
+HOSTNAME_SET(){
+cat >> /etc/hosts << EOF
+K8S_MASTER01_IP 10.10.0.18
+K8S_MASTER02_IP 10.10.0.19
+K8S_MASTER03_IP 10.10.0.20
+K8S_NODE01_IP 10.10.0.21
+K8S_NODE02_IP 10.10.0.22
+EOF
+ansible k8s-all -m copy -a "src=/etc/hosts dest=/etc/hosts"
+ansible $K8S_MASTER01_IP -m shell -a "hostnamectl set-hostname K8S_MASTER01"
+ansible $K8S_MASTER02_IP -m shell -a "hostnamectl set-hostname K8S_MASTER02"
+ansible $K8S_MASTER03_IP -m shell -a "hostnamectl set-hostname K8S_MASTER03"
+ansible $K8S_NODE01_IP -m shell -a "hostnamectl set-hostname K8S_NODE01"
+ansible $K8S_NODE02_IP -m shell -a "hostnamectl set-hostname K8S_NODE02"
+}
 # sync time
 TIME_CRON_INIT(){
 ansible k8s-all -m yum -a "name=ntpdate state=latest"
