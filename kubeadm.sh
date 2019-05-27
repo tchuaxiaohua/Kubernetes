@@ -4,7 +4,7 @@
 
 source ./env/env.sh
 source ./install/init.sh
-
+source ./install/ca.sh
 
 
 # 打印节点信息
