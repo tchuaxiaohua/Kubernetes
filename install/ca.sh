@@ -3,7 +3,7 @@
 source ../env/env.sh
 
 CA_CREATE(){
-mkdir /root/k8s/cfssl
+mkdir -p /root/k8s/cfssl
 cd /root/k8s/cfssl
 for CFFSSL in $TOOLS_GRUOP
 do
