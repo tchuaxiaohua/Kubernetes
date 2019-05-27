@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../env/env.sh
+source ./env/env.sh
 
 CA_CREATE(){
 mkdir -p /root/k8s/cfssl
