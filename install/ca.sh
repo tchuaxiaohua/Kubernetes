@@ -3,6 +3,7 @@
 source ./env/env.sh
 
 CA_CREATE(){
+cp -r $(pwd)/config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
 mkdir -p /root/k8s/cfssl
 cd /root/k8s/cfssl
 for CFFSSL in $TOOLS_GRUOP
@@ -18,8 +19,6 @@ else
 	exit 0 && echo "cfssl tools download faild."
 fi
 done
-
-cp -r ./config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
 cd /opt/k8s/certs/
 cfssl gencert -initca /opt/k8s/certs/ca-csr.json | cfssljson -bare ca
 ansible k8s-all -m copy -a 'src=/opt/k8s/certs/ca.csr dest=/etc/kubernetes/ssl/'

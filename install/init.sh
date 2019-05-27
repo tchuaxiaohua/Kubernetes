@@ -18,7 +18,7 @@ done
 
 # install ansible
 INSTALL_ANSIBLE(){
-yum install -y epel-release && yum install ansible -y
+yum install -y epel-release && yum makecache && yum install ansible -y
 ## 定义主机组
 if [ -f "/etc/ansible/hosts" ]
 then
@@ -54,7 +54,7 @@ ansible k8s-all -m replace -a 'path=/etc/selinux/config regexp="SELINUX=enforcin
 
 # kernel
 SET_K8S_KERNEL(){
-cat >> /etc/sysctl.d/k8s.conf << EOF
+cat > /etc/sysctl.d/k8s.conf << EOF
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
@@ -65,9 +65,10 @@ ansible k8s-all -m shell -a 'sysctl -p /etc/sysctl.d/k8s.conf'
 }
 
 # set hostname
-
 HOSTNAME_SET(){
-cat >> /etc/hosts << EOF
+cat > /etc/hosts << EOF
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 $K8S_MASTER01_IP $K8S_MASTER01
 $K8S_MASTER02_IP $K8S_MASTER02
 $K8S_MASTER03_IP $K8S_MASTER03
