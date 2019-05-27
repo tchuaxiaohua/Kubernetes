@@ -18,7 +18,7 @@ else
 fi
 done
 
-cp ./config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
+cp ../config/{ca-config.json,ca-csr.json} /opt/k8s/certs/
 cd /opt/k8s/certs/
 cfssl gencert -initca /opt/k8s/certs/ca-csr.json | cfssljson -bare ca
 
