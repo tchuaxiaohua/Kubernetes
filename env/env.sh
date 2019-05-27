@@ -19,7 +19,7 @@ K8S_MASTER03=k8s-master03
 K8S_NODE01=k8s-node01
 K8S_NODE02=k8s-node02
 
-## 脚本路径
+## 集群各组件工具脚本存放路径
 SCRIBE_PATH=/usr/local/bin
 ## PKI 工具集 cfssl 变量组
 TOOLS_GRUOP="cfssl_linux-amd64 cfssljson_linux-amd64 cfssl-certinfo_linux-amd64"
